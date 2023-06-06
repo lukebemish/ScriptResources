@@ -85,9 +85,11 @@ tasks.register('tagRelease') {
             }
 
             def gitCommitProcess = ['git','commit','-m',"Bump version to ${version}"].execute()
-            gitCommitProcess.waitFor()
+            def output = new StringBuilder()
+            def error = new StringBuilder()
+            gitCommitProcess.waitForProcessOutput(output, error)
             if (gitCommitProcess.exitValue() != 0) {
-                throw new GradleException('Failed to commit version bump')
+                throw new GradleException("Failed to commit version bump: ${error}")
             }
 
             def gitTagCreateProcess = "git tag ${version}-${libs.versions.minecraft.get()}".execute()
