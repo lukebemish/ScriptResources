@@ -10,6 +10,66 @@ plugins {
     alias libs.plugins.quilt.licenser apply false
 }
 
+version = new Properties().tap {
+    load(new FileInputStream(file('version.properties')))
+}.get('version')
+
+String lastTaggedVersion = version
+def gitTagProcess = 'git describe --abbrev=0 --tags'.execute()
+gitTagProcess.waitFor()
+if (gitTagProcess.exitValue() == 0) {
+    lastTaggedVersion = gitTagProcess.text.trim()
+    def parts = lastTaggedVersion.split("-")
+    lastTaggedVersion = parts[0..-2].join("-")
+} else {
+    logger.warn "Failed to get last tagged version: ERROR(${gitTagProcess.exitValue()})"
+}
+
+if (lastTaggedVersion == version) {
+    def currentTagProcess = 'git tag --points-at HEAD'.execute()
+    currentTagProcess.waitFor()
+    if (currentTagProcess.exitValue() != 0 || currentTagProcess.text.trim().empty) {
+        def noMetaParts = version.split("-")
+        def noBuildParts = noMetaParts[0].split("\\+")
+        def mainParts = noBuildParts[0].split("\\.")
+        mainParts[-1] = (mainParts[-1] as int + 1) as String
+        noBuildParts[0] = mainParts.join(".")
+        noMetaParts[0] = noBuildParts.join("+")
+        version = noMetaParts.join("-")
+    }
+}
+
+if (System.getenv('PR_NUMBER')) {
+    version += "-pr${System.getenv('PR_NUMBER')}"
+} else if (System.getenv('SNAPSHOT_MAVEN_URL')) {
+    version += '-SNAPSHOT'
+}
+
+subprojects {
+    version = rootProject.version
+}
+
+static def getGitCommit() {
+    def proc = 'git rev-parse --short HEAD'.execute()
+    proc.waitFor()
+    if (proc.exitValue()) {
+        throw new RuntimeException("Failed to get git commit: ERROR(${proc.exitValue()})")
+    }
+    return proc.text.trim()
+}
+
+static def getGitCommitDate() {
+    def procDate = 'git log -1 --format=%at'.execute()
+    procDate.waitFor()
+    if (procDate.exitValue()) {
+        throw new RuntimeException("Failed to get git commit time: ERROR(${procDate.exitValue()})")
+    }
+    long timestamp = procDate.text.trim() as long * 1000
+    return new Date(timestamp).format(/yyyy-MM-dd HH:mm:ssZ/, TimeZone.getTimeZone("UTC"))
+}
+
+println "Version: ${version}"
+
 modsDotGroovy {
     dslVersion = libs.versions.mdg.dsl.get()
     platform 'multiloader'
@@ -26,6 +86,23 @@ subprojects {
     license {
         rule rootProject.file('header.txt')
         exclude '**/*.mcmeta'
+        exclude '**/package-info.java'
+    }
+
+    jar {
+        manifest {
+            attributes([
+                'Specification-Title'     : mod_name,
+                'Specification-Vendor'    : mod_author,
+                'Specification-Version'   : rootProject.version,
+                'Implementation-Title'    : project.name,
+                'Implementation-Version'  : rootProject.version,
+                'Implementation-Vendor'   : mod_author,
+                'Implementation-Commit-Time': getGitCommitDate(),
+                'Implementation-Commit': getGitCommit(),
+                'Build-On-Minecraft'      : libs.versions.minecraft.get(),
+            ])
+        }
     }
 
     configurations.configureEach {
@@ -91,5 +168,25 @@ subprojects {
         annotationProcessor libs.autoservice
         compileOnly libs.autoextension
         compileOnly libs.autoservice
+    }
+
+    publishing {
+        repositories {
+            if (System.getenv('PR_NUMBER')) {
+                maven {
+                    name = 'LocalMaven'
+                    url = rootProject.layout.buildDirectory.dir('repo')
+                }
+            } else {
+                maven {
+                    name = 'PersonalMaven'
+                    url = uri(System.getenv('SNAPSHOT_MAVEN_URL') ?: System.getenv('MAVEN_URL') ?: 'https://maven.lukebemish.dev/releases')
+                    credentials {
+                        username = System.getenv('MAVEN_USER') ?: findProperty('lukebemishMavenUser') ?: ''
+                        password = System.getenv('MAVEN_PASSWORD') ?: findProperty('lukebemishMavenPassword') ?: ''
+                    }
+                }
+            }
+        }
     }
 }
