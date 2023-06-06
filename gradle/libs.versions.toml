@@ -3,6 +3,10 @@ minecraft = "1.19.4"
 parchment_minecraft = "1.19.3"
 parchment_mappings = "2023.03.12"
 quilt_loader = "0.18.5"
+forgegradle = "5.1.76"
+
+quilt_loom = "1.1.23"
+quilt_licenser = "2.0.1"
 
 qfapi = "6.0.0-beta.2+0.76.0-1.19.4"
 groovyduvet = "2.1.0"
@@ -13,10 +17,16 @@ groovy = "4.0.10"
 forge = "1.19.4-45.0.13"
 mixin = "0.8.5"
 
+librarian = "1.2.0"
+mixingradle = "0.7.33"
+
 autoservice = "1.1.0"
 autoextension = "0.1.1"
 
 tinyremapper = "0.8.6+lukebemish.1+local"
+
+mdg_plugin = "1.4.1"
+mdg_dsl = "1.5.0"
 
 [libraries]
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
@@ -42,11 +52,9 @@ autoextension = { module = "dev.lukebemish.autoextension:autoextension", version
 tinyremapper = { module = "net.fabricmc:tiny-remapper", version.ref = "tinyremapper" }
 
 [plugins]
-quilt_loom = { id = "org.quiltmc.loom", version = "1.1.+" }
-forgegradle = {id = "net.minecraftforge.gradle", version = "5.1.+"}
-librarian = {id = "org.parchmentmc.librarian.forgegradle", version = "1.+"}
-mixin = {id = "org.spongepowered.mixin", version = "0.7.+"}
-mdg = {id = "io.github.groovymc.modsdotgroovy", version = "1.4.1"}
-cursegradle = {id = "com.matthewprenger.cursegradle", version = "1.+"}
-minotaur = {id = "com.modrinth.minotaur", version = "2.+"}
-quilt_licenser = {id = "org.quiltmc.gradle.licenser", version = "2.+"}
+quilt_loom = { id = "org.quiltmc.loom", version.ref = "quilt_loom" }
+forgegradle = {id = "net.minecraftforge.gradle", version.ref = "forgegradle" }
+librarian = {id = "org.parchmentmc.librarian.forgegradle", version.ref = "librarian" }
+mixin = {id = "org.spongepowered.mixin", version.ref = "mixingradle" }
+mdg = {id = "io.github.groovymc.modsdotgroovy", version.ref = "mdg_plugin" }
+quilt_licenser = {id = "org.quiltmc.gradle.licenser", version.ref = "quilt_licenser" }

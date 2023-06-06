@@ -2,8 +2,6 @@ plugins {
     alias libs.plugins.forgegradle
     alias libs.plugins.librarian
     alias libs.plugins.mixin
-    alias libs.plugins.cursegradle
-    alias libs.plugins.minotaur
 }
 
 base {
@@ -102,44 +100,6 @@ publishing {
         mavenJava(MavenPublication) {
             from components.java
             artifactId base.archivesName.get()
-        }
-    }
-}
-
-if (project.hasProperty("curseforge_key")) {
-    curseforge {
-        apiKey = project.curseforge_key
-        project {
-            id = '843930'
-            releaseType = "${project.release_type}"
-            addGameVersion libs.versions.minecraft.get()
-            addGameVersion 'Forge'
-            mainArtifact(tasks.jarJar) {
-                displayName = "JsonWrangler [Forge] v$project.version"
-            }
-            relations {
-                requiredDependency 'gml'
-            }
-        }
-        options {
-            forgeGradleIntegration = true
-        }
-    }
-}
-
-if (project.hasProperty("modrinth_key")) {
-    modrinth {
-        token = project.modrinth_key
-        projectId = 'XodEFO40'
-        versionNumber = "$project.version"
-        versionType = "${project.release_type}"
-        detectLoaders = false
-        uploadFile = tasks.jarJar
-        gameVersions = [libs.versions.minecraft.get()]
-        loaders = ['forge']
-        dependencies {
-            // not on modrinth yet:
-            //required.project 'gml'
         }
     }
 }
