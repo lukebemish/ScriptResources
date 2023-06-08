@@ -98,8 +98,11 @@ jar {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            from components.java
+            groupId project.group
+            version project.version
             artifactId base.archivesName.get()
+            artifact jar
+            artifact sourcesJar
         }
     }
 }
