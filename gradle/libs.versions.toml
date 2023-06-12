@@ -2,7 +2,7 @@
 minecraft = "1.19.4"
 parchment_minecraft = "1.19.3"
 parchment_mappings = "2023.03.12"
-quilt_loader = "0.18.5"
+quilt_loader = "0.19.0"
 forgegradle = "5.1.76"
 
 quilt_loom = "1.1.23"
