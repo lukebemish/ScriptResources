@@ -1,26 +1,26 @@
 [versions]
-minecraft = "1.19.4"
+minecraft = "1.20.1"
 parchment_minecraft = "1.19.3"
 parchment_mappings = "2023.03.12"
-quilt_loader = "0.18.5"
-forgegradle = "5.1.76"
+quilt_loader = "0.19.1"
+forgegradle = "6.0.6"
 
-quilt_loom = "1.1.23"
+quilt_loom = "1.2.3"
 quilt_licenser = "2.0.1"
 
-qfapi = "6.0.0-beta.2+0.76.0-1.19.4"
-groovyduvet = "2.1.0"
-cgl = "0.2.4"
-gml = "3.1.5"
-groovy = "4.0.10"
+qfapi = "7.0.3+0.83.1-1.20.1"
+groovyduvet_all = "3.0.2"
+groovyduvet_core = "3.0.1"
+cgl = "0.3.7"
+gml = "4.0.2"
 
-forge = "1.19.4-45.0.13"
+forge = "1.20.1-47.0.3"
 mixin = "0.8.5"
 
 librarian = "1.2.0"
 mixingradle = "0.7.33"
 
-autoservice = "1.1.0"
+autoservice = "1.1.1"
 autoextension = "0.1.1"
 
 tinyremapper = "0.8.6+lukebemish.1+local"
@@ -33,18 +33,16 @@ minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
 quilt_loader = { module = "org.quiltmc:quilt-loader", version.ref = "quilt_loader" }
 
 qfapi = { module = "org.quiltmc.quilted-fabric-api:quilted-fabric-api", version.ref = "qfapi" }
-groovyduvet_all = { module = "io.github.lukebemish.groovyduvet:groovyduvet", version.ref = "groovyduvet" }
-groovyduvet_groovy = { module = "io.github.lukebemish.groovyduvet:groovyduvet-groovy", version.ref = "groovyduvet" }
-cgl_common = { module = "io.github.groovymc.cgl:cgl-1.19.4", version.ref = "cgl" }
-cgl_forge = { module = "io.github.groovymc.cgl:cgl-1.19.4-forge", version.ref = "cgl" }
-cgl_quilt = { module = "io.github.groovymc.cgl:cgl-1.19.4-quilt", version.ref = "cgl" }
+groovyduvet_all = { module = "org.groovymc.groovyduvet:groovyduvet", version.ref = "groovyduvet_all" }
+groovyduvet_core = { module = "org.groovymc.groovyduvet:groovyduvet-core", version.ref = "groovyduvet_core" }
 
-gml = { module = "com.matyrobbrt.gml:gml", version.ref = "gml" }
+cgl_common = { module = "org.groovymc.cgl:cgl-1.20", version.ref = "cgl" }
+cgl_forge = { module = "org.groovymc.cgl:cgl-1.20-forge", version.ref = "cgl" }
 
-groovy_core = { module = "org.apache.groovy:groovy", version.ref = "groovy" }
-groovy_json = { module = "org.apache.groovy:groovy-json", version.ref = "groovy" }
+gml = { module = "org.groovymc.gml:gml", version.ref = "gml" }
 
 forge = { module = "net.minecraftforge:forge", version.ref = "forge" }
+mixin = { module = "org.spongepowered:mixin", version.ref = "mixin" }
 
 autoservice = { module = "com.google.auto.service:auto-service", version.ref = "autoservice" }
 autoextension = { module = "dev.lukebemish.autoextension:autoextension", version.ref = "autoextension" }
@@ -56,5 +54,5 @@ quilt_loom = { id = "org.quiltmc.loom", version.ref = "quilt_loom" }
 forgegradle = {id = "net.minecraftforge.gradle", version.ref = "forgegradle" }
 librarian = {id = "org.parchmentmc.librarian.forgegradle", version.ref = "librarian" }
 mixin = {id = "org.spongepowered.mixin", version.ref = "mixingradle" }
-mdg = {id = "io.github.groovymc.modsdotgroovy", version.ref = "mdg_plugin" }
+mdg = {id = "org.groovymc.modsdotgroovy", version.ref = "mdg_plugin" }
 quilt_licenser = {id = "org.quiltmc.gradle.licenser", version.ref = "quilt_licenser" }

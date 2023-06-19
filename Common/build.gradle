@@ -20,10 +20,9 @@ dependencies {
     //DO NOT USE IN PROJECT
     //Provides necessary stuff for project to compile
     modCompileOnly libs.quilt.loader
+    compileOnly libs.groovyduvet.core
 
     modCompileOnly libs.cgl.common
-
-    compileOnly libs.groovy.json
 }
 
 import net.fabricmc.loom.task.AbstractRemapJarTask
@@ -38,7 +37,7 @@ groovydoc {
 }
 
 tasks.register('groovydocJar', Jar) {
-    it.classifier 'javadoc'
+    it.archiveClassifier = 'javadoc'
     it.from groovydoc.destinationDir
     it.dependsOn(groovydoc)
 }

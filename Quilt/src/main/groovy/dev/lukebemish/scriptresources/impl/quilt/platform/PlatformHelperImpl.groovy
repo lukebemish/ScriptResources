@@ -8,7 +8,7 @@ package dev.lukebemish.scriptresources.impl.quilt.platform
 import com.google.auto.service.AutoService
 import dev.lukebemish.scriptresources.impl.services.PlatformHelper
 import groovy.transform.CompileStatic
-import io.github.lukebemish.groovyduvet.core.api.RemappingCustomizer
+import org.groovymc.groovyduvet.core.api.RemappingCustomizer
 import net.fabricmc.api.EnvType
 import org.codehaus.groovy.control.CompilerConfiguration
 import org.quiltmc.loader.api.QuiltLoader

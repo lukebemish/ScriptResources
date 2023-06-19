@@ -28,6 +28,12 @@ loom {
     }
 }
 
+configurations {
+    localImplementation
+    runtimeClasspath.extendsFrom localImplementation
+    compileOnly.extendsFrom localImplementation
+}
+
 dependencies {
     minecraft libs.minecraft
     mappings loom.layered() {
@@ -39,10 +45,8 @@ dependencies {
 
     modImplementation libs.qfapi
 
-    modImplementation(libs.cgl.quilt)
-
-    runtimeOnly(libs.groovyduvet.groovy)
-    modImplementation(libs.groovyduvet.all)
+    modImplementation libs.groovyduvet.all
+    localImplementation libs.groovyduvet.core
 
     compileOnly(project(path: ":Common", configuration: "namedElements")) {
         exclude group: 'org.quiltmc'

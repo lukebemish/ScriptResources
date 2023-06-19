@@ -104,8 +104,6 @@ subprojects {
     }
 
     dependencies {
-        compileOnly libs.groovy.core
-
         annotationProcessor libs.autoextension
         annotationProcessor libs.autoservice
         compileOnly libs.autoextension
