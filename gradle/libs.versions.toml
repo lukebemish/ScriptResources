@@ -12,7 +12,7 @@ qfapi = "6.0.0-beta.2+0.76.0-1.19.4"
 groovyduvet = "2.1.0"
 cgl = "0.2.4"
 gml = "3.1.5"
-groovy = "4.0.10"
+groovy = "4.0.12"
 
 forge = "1.19.4-45.0.13"
 mixin = "0.8.5"
