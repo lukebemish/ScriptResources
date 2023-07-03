@@ -14,7 +14,7 @@ groovyduvet_core = "3.0.1"
 cgl = "0.3.8"
 gml = "4.0.2"
 
-forge = "1.20.1-47.0.3"
+forge = "1.20.1-47.0.35"
 mixin = "0.8.5"
 
 librarian = "1.2.0"
